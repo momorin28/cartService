@@ -3,7 +3,7 @@
 import requests 
 from flask import Flask, jsonify, request
 
-app2 = Flask(__name__)
+app = Flask(__name__)
 
 #Set variable to product service
 baseURL = 'http://127.0.0.1:5000' 
@@ -21,7 +21,7 @@ def get_products(product_id):
 
 # /cart/{user id} (GET): Retrieve the current contents of a user’s shopping cart, including prod-
 # uct names, quantities, and total prices.
-@app2.route('/cart/<int:user_id>', methods=['GET'])
+@app.route('/cart/<int:user_id>', methods=['GET'])
 def get_cart(user_id):
     userCart = next((userCart for userCart in carts if userCart["userID"] == user_id), None)
     if userCart:
@@ -30,7 +30,7 @@ def get_cart(user_id):
         return jsonify({"error": "User cannot be found"}), 400
     
 # /cart/{user id}/add/{product id} (POST): Add a specified quantity of a product to the user’s cart.
-@app2.route('/cart/<int:user_id>/add/<int:product_id>', methods=['POST'])
+@app.route('/cart/<int:user_id>/add/<int:product_id>', methods=['POST'])
 def add_product(user_id, product_id):
     
     data = request.json
@@ -88,7 +88,7 @@ def add_product(user_id, product_id):
         return jsonify({"error": "Quantity not given"}), 400
     
         
-@app2.route('/cart/<int:user_id>/remove/<int:product_id>', methods=['POST'])
+@app.route('/cart/<int:user_id>/remove/<int:product_id>', methods=['POST'])
 def remove_product(user_id, product_id):
     
     data = request.json
@@ -146,5 +146,5 @@ def remove_product(user_id, product_id):
         return jsonify({"error": "Quantity was not given"})
 
 if __name__ == '__main__':
-    app2.run(debug=True, port=5001)
+    app.run(debug=True, port=5001)
  
