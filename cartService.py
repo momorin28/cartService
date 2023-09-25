@@ -6,7 +6,7 @@ from flask import Flask, jsonify, request
 app = Flask(__name__)
 
 #Set variable to product service
-baseURL = 'http://127.0.0.1:5000' 
+baseURL = 'https://product-service-6svl.onrender.com' 
 # Three users with empty carts
 carts = [
     {"userID": 1, "cart": {}},
@@ -15,7 +15,7 @@ carts = [
 ]
 
 def get_products(product_id):
-    response = requests.get(f'http://127.0.0.1:5000/products/{product_id}')
+    response = requests.get(f'https://product-service-6svl.onrender.com/products/{product_id}')
     data = response.json()
     return data
 
@@ -146,5 +146,5 @@ def remove_product(user_id, product_id):
         return jsonify({"error": "Quantity was not given"})
 
 if __name__ == '__main__':
-    app.run(debug=True, port=5001)
+    app.run(debug=True)
  
